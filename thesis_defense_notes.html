@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thesis Defense Study Notes — Anjali Shibu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --ink: #1a1a2e;
+    --paper: #faf8f3;
+    --accent: #c0392b;
+    --gold: #d4a017;
+    --muted: #6b6b7b;
+    --code-bg: #0d1117;
+    --code-text: #e6edf3;
+    --green: #27ae60;
+    --blue: #2980b9;
+    --orange: #e67e22;
+    --border: #d5cfc3;
+    --highlight: #fff3cd;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* Sidebar nav */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 240px; height: 100vh;
+    background: var(--ink);
+    color: #ccc;
+    overflow-y: auto;
+    padding: 20px 0;
+    z-index: 100;
+    border-right: 3px solid var(--accent);
+  }
+
+  .sidebar h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 0 20px 12px;
+    border-bottom: 1px solid #333;
+    margin-bottom: 10px;
+  }
+
+  .sidebar a {
+    display: block;
+    padding: 6px 20px;
+    color: #aaa;
+    text-decoration: none;
+    font-size: 12.5px;
+    font-family: 'Source Serif 4', serif;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+  }
+  .sidebar a:hover { color: #fff; border-left-color: var(--accent); background: rgba(255,255,255,0.05); }
+  .sidebar a.section { color: #fff; font-weight: 600; margin-top: 8px; font-size: 13px; }
+  .sidebar a.sub { padding-left: 32px; font-size: 12px; }
+
+  /* Main content */
+  .main {
+    margin-left: 240px;
+    padding: 40px 60px;
+    max-width: 980px;
+  }
+
+  .hero {
+    background: var(--ink);
+    color: #fff;
+    padding: 50px 60px;
+    margin-left: 240px;
+    border-bottom: 4px solid var(--accent);
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    line-height: 1.2;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+
+  .hero .subtitle {
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-family: 'Source Serif 4', serif;
+  }
+
+  .hero p { color: #bbb; font-size: 14px; }
+
+  /* Sections */
+  section { margin-bottom: 56px; }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--ink);
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 8px;
+    margin: 40px 0 20px;
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--accent);
+    margin: 28px 0 10px;
+  }
+
+  h4 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ink);
+    margin: 18px 0 6px;
+    letter-spacing: 0.5px;
+  }
+
+  p { margin-bottom: 14px; }
+
+  /* Q&A Cards */
+  .qa-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin: 18px 0;
+    overflow: hidden;
+  }
+
+  .qa-question {
+    background: #f0ebe0;
+    padding: 14px 18px;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 14px;
+    border-left: 4px solid var(--accent);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .qa-question::after { content: "▼"; font-size: 11px; flex-shrink: 0; color: var(--accent); margin-top: 2px; }
+  .qa-card.open .qa-question::after { content: "▲"; }
+
+  .qa-answer {
+    display: none;
+    padding: 16px 18px;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .qa-card.open .qa-answer { display: block; }
+
+  /* Code blocks */
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    border-radius: 6px;
+    padding: 16px 20px;
+    overflow-x: auto;
+    margin: 14px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.6;
+    border-left: 3px solid var(--accent);
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    background: #eee;
+    color: var(--accent);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 12.5px;
+  }
+
+  pre code { background: none; color: inherit; padding: 0; }
+
+  /* Highlights */
+  .warn {
+    background: #fff3cd;
+    border-left: 4px solid var(--gold);
+    padding: 12px 16px;
+    border-radius: 0 4px 4px 0;
+    margin: 14px 0;
+    font-size: 13.5px;
+  }
+
+  .info {
+    background: #d4eeff;
+    border-left: 4px solid var(--blue);
+    padding: 12px 16px;
+    border-radius: 0 4px 4px 0;
+    margin: 14px 0;
+    font-size: 13.5px;
+  }
+
+  .success {
+    background: #d4edda;
+    border-left: 4px solid var(--green);
+    padding: 12px 16px;
+    border-radius: 0 4px 4px 0;
+    margin: 14px 0;
+    font-size: 13.5px;
+  }
+
+  .danger {
+    background: #fde;
+    border-left: 4px solid var(--accent);
+    padding: 12px 16px;
+    border-radius: 0 4px 4px 0;
+    margin: 14px 0;
+    font-size: 13.5px;
+  }
+
+  /* Formula box */
+  .formula-box {
+    background: #f9f5ff;
+    border: 1px solid #c8b8e8;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 14px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: #3a0080;
+  }
+
+  .formula-box strong { color: var(--accent); }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13.5px;
+  }
+
+  th {
+    background: var(--ink);
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+  }
+
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tr:nth-child(even) td { background: #f7f4ee; }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-right: 4px;
+  }
+
+  .tag-red { background: #fde; color: var(--accent); }
+  .tag-green { background: #d4edda; color: #155724; }
+  .tag-blue { background: #d4eeff; color: #0c5276; }
+  .tag-gold { background: #fff3cd; color: #856404; }
+
+  /* 8-day plan */
+  .day-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .day-card {
+    background: var(--ink);
+    color: #fff;
+    padding: 14px;
+    border-radius: 6px;
+    border-top: 3px solid var(--accent);
+  }
+
+  .day-card h4 { color: var(--gold); margin: 0 0 6px; font-size: 13px; }
+  .day-card p { font-size: 12px; color: #ccc; margin: 0; }
+
+  /* Method comparison row */
+  .method-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin: 6px 0;
+    overflow: hidden;
+  }
+
+  .method-name {
+    background: var(--ink);
+    color: var(--gold);
+    padding: 10px 12px;
+    font-weight: 700;
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .method-theory { padding: 10px 12px; background: #f9f9f9; font-size: 13px; }
+  .method-code { padding: 10px 12px; background: #fff; font-size: 13px; border-left: 1px solid var(--border); }
+
+  .scroll-top {
+    position: fixed;
+    bottom: 30px; right: 30px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 200;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <h2>Study Guide</h2>
+  <a href="#study-plan" class="section">📅 8-Day Study Plan</a>
+  <a href="#must-read" class="section">📚 Must-Read Papers</a>
+  <a href="#overview" class="section">🗺 Thesis Overview</a>
+  <a href="#char-func" class="section">🔑 Characteristic Function</a>
+  <a href="#shap" class="section">1. SHAP</a>
+  <a href="#banzhaf" class="section">2. Banzhaf</a>
+  <a href="#myerson" class="section">3. Myerson</a>
+  <a href="#owen" class="section">4. Owen Variants</a>
+  <a href="#rmyerson" class="section">5. R-Myerson</a>
+  <a href="#metrics" class="section">📐 Metrics</a>
+  <a href="#pipeline" class="section">⚙️ Pipeline</a>
+  <a href="#datasets" class="section">📊 Datasets</a>
+  <a href="#results" class="section">📈 Key Results</a>
+  <a href="#regulatory" class="section">⚖️ Regulatory</a>
+  <a href="#tricky-qa" class="section">🔥 Tricky Q&A</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="subtitle">Pre-Defense Study Notes · TSI Riga MSc 2026</div>
+  <h1>Game-Theoretic Feature Attribution<br>for Stable Interpretability in<br>Ensemble Credit Risk Models</h1>
+  <p>Complete concept-to-code guide · 7 attribution methods · 5 datasets · 420 configurations</p>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- ======================== STUDY PLAN ======================== -->
+<section id="study-plan">
+<h2>📅 8-Day Study Plan</h2>
+<div class="day-grid">
+  <div class="day-card"><h4>Day 1</h4><p>Characteristic function + all 5 attribution methods (theory + code). Focus on how v(S) is computed in each method.</p></div>
+  <div class="day-card"><h4>Day 2</h4><p>Metrics: CV, Kuncheva, Cosine, I score, S(α). Write each formula from memory and trace the code.</p></div>
+  <div class="day-card"><h4>Day 3</h4><p>Pipeline: preprocessing, tuning split, SMOTE/SMOTETomek/CostSensitive. Why each design choice was made.</p></div>
+  <div class="day-card"><h4>Day 4</h4><p>Datasets: 5 datasets, their imbalance levels, feature counts after OHE. Key results per dataset.</p></div>
+  <div class="day-card"><h4>Day 5</h4><p>Results deep-dive: AUC vs I trade-off, S(α) rankings, peak configurations, Q vs I scatter.</p></div>
+  <div class="day-card"><h4>Day 6</h4><p>Regulatory section: ECOA, GDPR, adverse action notices, cross-fold Jaccard consistency, Table 4.9.</p></div>
+  <div class="day-card"><h4>Day 7</h4><p>Limitations, contributions, future work. Statistical tests: Friedman, Nemenyi, Wilcoxon, Cliff's delta.</p></div>
+  <div class="day-card"><h4>Day 8</h4><p>Practice answering ALL Q&A cards below out loud. Especially the "tricky" section at the end.</p></div>
+</div>
+</section>
+
+<!-- ======================== MUST READ ======================== -->
+<section id="must-read">
+<h2>📚 Must-Read Papers (Priority Order for 8 Days)</h2>
+<div class="info"><strong>Focus on understanding the concept, not memorizing details.</strong> Your examiner will test whether you understand why you cited these, not what page an equation is on.</div>
+
+<table>
+  <tr><th>Priority</th><th>Paper</th><th>What to Know</th></tr>
+  <tr><td><span class="tag tag-red">CRITICAL</span></td><td>Lundberg & Lee (2017) — SHAP paper</td><td>Unified game-theoretic framework; efficiency axiom; how TreeSHAP differs from vanilla SHAP</td></tr>
+  <tr><td><span class="tag tag-red">CRITICAL</span></td><td>Ballegeer et al. (2025)</td><td>Cost-sensitive learning destabilises SHAP; SHAP instability under class imbalance — directly motivates your whole thesis</td></tr>
+  <tr><td><span class="tag tag-red">CRITICAL</span></td><td>Chen et al. (2024)</td><td>CV and SRA to measure SHAP instability; controlled resampling experiments — your metrics are inspired by this</td></tr>
+  <tr><td><span class="tag tag-red">CRITICAL</span></td><td>Shapley (1953)</td><td>4 axioms: efficiency, symmetry, dummy player, additivity. Know them by heart.</td></tr>
+  <tr><td><span class="tag tag-red">CRITICAL</span></td><td>Myerson (1977)</td><td>Graph-restricted games; feasible coalitions = connected subgraphs only; Myerson value = Shapley of restricted game</td></tr>
+  <tr><td><span class="tag tag-gold">HIGH</span></td><td>Owen (1977)</td><td>Two-level Shapley; coalition structure; efficiency at both group and individual level</td></tr>
+  <tr><td><span class="tag tag-gold">HIGH</span></td><td>Banzhaf (1965)</td><td>Equal weighting of all coalitions; no efficiency axiom; theoretical robustness via uniform sampling</td></tr>
+  <tr><td><span class="tag tag-gold">HIGH</span></td><td>Wang et al. (2023)</td><td>Banzhaf has minimal Lipschitz constant among semivalues; Monte Carlo approximation; robustness argument</td></tr>
+  <tr><td><span class="tag tag-gold">HIGH</span></td><td>Yamashita et al. (2024) — OHAP</td><td>Owen-based grouped attribution; aligned with regulatory categories; motivation for Owen-Domain</td></tr>
+  <tr><td><span class="tag tag-gold">HIGH</span></td><td>Dutta & Ray (1989)</td><td>Egalitarian solution in cooperative games; Lorenz-maximal; theoretical foundation for R-Myerson</td></tr>
+  <tr><td><span class="tag tag-blue">IMPORTANT</span></td><td>Kuncheva (2007)</td><td>Kuncheva index formula; why it corrects for chance overlap unlike Jaccard</td></tr>
+  <tr><td><span class="tag tag-blue">IMPORTANT</span></td><td>Filom et al. (2024)</td><td>Shapley/Banzhaf/Owen for tree models; path-dependent TreeSHAP lacks implementation invariance</td></tr>
+  <tr><td><span class="tag tag-blue">IMPORTANT</span></td><td>Aas et al. (2021)</td><td>Feature independence assumption in SHAP; conditional vs interventional SHAP</td></tr>
+  <tr><td><span class="tag tag-blue">IMPORTANT</span></td><td>Pawlicki et al. (2024)</td><td>XAI evaluation frameworks review; single metrics insufficient; redundancy across metrics — motivates composite I score</td></tr>
+  <tr><td><span class="tag tag-blue">IMPORTANT</span></td><td>Lundberg et al. (2019) — TreeSHAP</td><td>Exact polynomial-time computation for tree ensembles; path-dependent formulation</td></tr>
+  <tr><td><span class="tag tag-blue">IMPORTANT</span></td><td>AlonsoRobisco (2022, 2025)</td><td>Ensemble methods outperform LR by ~5%; EU AI Act credit risk as high-risk system</td></tr>
+  <tr><td><span class="tag tag-green">BACKGROUND</span></td><td>Abe et al. (2023)</td><td>In-group egalitarian Owen value; redistribution within groups; direct inspiration for R-Myerson design</td></tr>
+  <tr><td><span class="tag tag-green">BACKGROUND</span></td><td>Majumdar et al. (2025)</td><td>Accuracy–interpretability dilemma; Rashomon effect; ECOA compliance</td></tr>
+</table>
+</section>
+
+<!-- ======================== OVERVIEW ======================== -->
+<section id="overview">
+<h2>🗺 Thesis in One Page</h2>
+
+<h3>The Core Problem</h3>
+<p>Credit risk models use black-box ensembles (RF, XGB, LGB) because they outperform simple models. But ECOA, GDPR, and the EU AI Act require transparent explanations. SHAP is the standard XAI tool but becomes <strong>unstable under class imbalance</strong> (which is always present in credit data). Can coalition-aware game-theoretic methods do better?</p>
+
+<h3>What Was Done</h3>
+<div class="method-row">
+  <div class="method-name">Datasets</div>
+  <div class="method-theory">5 credit datasets spanning 1%–30% default rates (Coursera, LC-4%, LC-10%, Taiwan, German)</div>
+  <div class="method-code">420 total configs = 3 models × 4 samplers × 7 methods × 5 datasets</div>
+</div>
+<div class="method-row">
+  <div class="method-name">Models</div>
+  <div class="method-theory">Random Forest, XGBoost, LightGBM — evaluated under 4-fold stratified CV</div>
+  <div class="method-code">Tuned via RandomizedSearchCV (15 iterations) on held-out tuning pool</div>
+</div>
+<div class="method-row">
+  <div class="method-name">Samplers</div>
+  <div class="method-theory">None, SMOTE, SMOTETomek, Cost-Sensitive learning</div>
+  <div class="method-code">Applied inside cross-val folds (no leakage) via ImbPipeline</div>
+</div>
+<div class="method-row">
+  <div class="method-name">Methods</div>
+  <div class="method-theory">SHAP, Banzhaf, Myerson, Owen-Domain, Owen-Data, Owen-Model, R-Myerson</div>
+  <div class="method-code">All applied on stratified test sample (n=30, min 5 defaults) per fold</div>
+</div>
+
+<h3>Main Findings</h3>
+<div class="success">
+  <strong>R-Myerson wins:</strong> Perfect Kuncheva (K_c = 1.000) on ALL 5 datasets. Highest S(α=0.5) on most datasets. Best regulatory consistency (Jaccard = 1.000 vs SHAP range 0.169–0.643).
+</div>
+<div class="warn">
+  <strong>SMOTE paradox:</strong> SMOTE improves the mathematical I score (more stable attributions) but degrades AUC-ROC. This is because it creates synthetic data — explanations are stable but based on a fake distribution, not real feature-label relationships.
+</div>
+<div class="info">
+  <strong>AUC–I trade-off exists, but only under moderate-to-severe imbalance:</strong> Significant negative Spearman ρ on Taiwan (−0.258), LC-10% (−0.395), Coursera (−0.391). No significant correlation on German or LC-4%.
+</div>
+</section>
+
+<!-- ======================== CHARACTERISTIC FUNCTION ======================== -->
+<section id="char-func">
+<h2>🔑 The Characteristic Function — The Foundation of Everything</h2>
+
+<div class="danger"><strong>Your supervisor asked: "How is the characteristic function implemented?"</strong><br>
+Your answer "it is averaged" was partially right. Here is the complete, correct answer.</div>
+
+<h3>Theory: What is v(S)?</h3>
+<p>In cooperative game theory, the characteristic function assigns a "worth" to each coalition (subset) of players. In machine learning:</p>
+
+<div class="formula-box">
+<strong>v(S) = f(x_S)</strong><br><br>
+= the model's output when ONLY the features in coalition S are available.<br>
+Features NOT in S must be "marginalized out" — integrated over their distribution.
+</div>
+
+<h3>The Critical Question: How is "marginalization" done?</h3>
+
+<p>There are two main approaches. <strong>TreeSHAP uses the interventional (conditional) approach for speed, but the exact mechanism matters:</strong></p>
+
+<table>
+  <tr><th>Approach</th><th>How v(S) is computed</th><th>What it means</th></tr>
+  <tr><td><strong>Interventional</strong> (SHAP default)</td><td>Features not in S are replaced with values from a background/reference dataset. Average over background samples.</td><td>Evaluates model on possibly out-of-distribution input combinations</td></tr>
+  <tr><td><strong>Conditional</strong></td><td>Features not in S are integrated out conditional on S's values — their actual joint distribution</td><td>More realistic but computationally expensive</td></tr>
+  <tr><td><strong>TreeSHAP path-dependent</strong></td><td>Follows the decision tree path; at each split, if a feature is NOT in S, averages left/right outcomes weighted by training data proportions</td><td>Exact, polynomial-time, no background needed — but path-dependent variant can give different answers for same function expressed differently</td></tr>
+</table>
+
+<h3>In Your Code: How is v(S) actually computed?</h3>
+
+<p><strong>For SHAP (TreeSHAP):</strong></p>
+<pre><code>def get_shap_values(pipe, X_test):
+    clf = pipe.named_steps['clf']
+    X_proc = pipe.named_steps['prep'].transform(X_test)
+    
+    explainer = shap.TreeExplainer(clf)
+    sv = explainer.shap_values(X_proc)
+    
+    if isinstance(sv, list): return sv[1]   # binary: take class 1
+    elif sv.ndim == 3: return sv[:, :, 1]   # 3D output: take class 1
+    return sv</code></pre>
+
+<div class="info">
+<strong>Key Answer for Supervisor:</strong> TreeSHAP computes v(S) internally within the decision tree structure. For each node where a feature is NOT in S, it averages the model predictions over the training samples that pass through that node — this is the "conditional expectation given the tree path." It does NOT simply average across all background samples. The SHAP values you get back are the Shapley values of this game, satisfying the efficiency axiom: sum of all φ_i = f(x) − baseline.
+</div>
+
+<p><strong>For Banzhaf (your code uses Monte Carlo):</strong></p>
+<pre><code>def compute_banzhaf(pipe, X_test, n_samples=2, max_instances=2):
+    # For each instance x and feature f:
+    for _ in range(n_samples):
+        coal = np.random.binomial(1, 0.5, n_feat)  # random coalition
+        x_with = x.copy()
+        x_with[0, f] = x[0, f] * coal[f]           # feature f present if coal[f]=1
+        p1 = clf.predict_proba(x_with)[0, 1]
+        
+        x_without = x.copy()
+        x_without[0, f] = 0                          # feature f absent = set to 0
+        p0 = clf.predict_proba(x_without)[0, 1]
+        
+        contrib.append(p1 - p0)
+    mat[i, f] = np.mean(contrib)</code></pre>
+
+<div class="warn">
+<strong>Important limitation:</strong> Setting absent features to 0 (instead of sampling from background) is a simplification. This uses zero as the "null" state, which may not represent the true marginal expectation. Also, n_samples=2, max_instances=2 is extremely conservative due to the 1,680-configuration experimental grid. This is the main reason Banzhaf ranked last — approximation budget, not fundamental method weakness.
+</div>
+
+<p><strong>For Owen variants — v(S) is NOT recomputed:</strong></p>
+<pre><code># Owen does NOT independently compute v(S).
+# It takes the pre-computed TreeSHAP values and REDISTRIBUTES them:
+phi_base = shap_full.mean(axis=0)  # mean SHAP across background
+
+def owen_from_phi(phi, groups):
+    for group_name, feats in groups.items():
+        total = np.sum(np.abs(phi[feats]))      # sum abs SHAP in group
+        per = total / len(feats)                 # equal share per feature
+        for f in feats:
+            out[f] = sign(phi[f]) * per         # preserve direction, equalize magnitude</code></pre>
+
+<div class="danger">
+<strong>This is an approximation!</strong> The exact Owen value (Eq. 2.16 in your thesis) requires combinatorial enumeration of group and within-group permutations. Your implementation (Eq. 2.18) is an Owen-inspired heuristic: it redistributes pre-computed TreeSHAP values uniformly within groups while preserving signs. This is explicitly acknowledged in the thesis as "Owen-inspired approximation."
+</div>
+</section>
+
+<!-- ======================== SHAP ======================== -->
+<section id="shap">
+<h2>1. SHAP — The Baseline</h2>
+
+<h3>Theory</h3>
+<div class="formula-box">
+<strong>φ_i^SHAP</strong> = Σ_{S ⊆ N\{i}} [|S|!(d-|S|-1)!/d!] × [v(S∪{i}) − v(S)]<br><br>
+= Expected marginal contribution of feature i, averaged over all possible orderings of features<br><br>
+Weight = |S|!(d-|S|-1)!/d! ensures each ordering is equally likely
+</div>
+
+<h3>The 4 Axioms (know these!)</h3>
+<table>
+  <tr><th>Axiom</th><th>What it means</th><th>Why it matters for credit</th></tr>
+  <tr><td><strong>Efficiency</strong></td><td>Σφ_i = f(x) − baseline</td><td>Attributions sum to the actual prediction; full accountability</td></tr>
+  <tr><td><strong>Symmetry</strong></td><td>If two features contribute identically in all coalitions, they get equal attribution</td><td>Fairness between correlated features</td></tr>
+  <tr><td><strong>Dummy</strong></td><td>If a feature contributes nothing to any coalition, φ_i = 0</td><td>Irrelevant features get zero attribution</td></tr>
+  <tr><td><strong>Additivity</strong></td><td>φ(v+w) = φ(v) + φ(w)</td><td>Explanations for combined models combine linearly</td></tr>
+</table>
+
+<h3>Weaknesses (motivating your thesis)</h3>
+<ul style="margin-left:20px; margin-bottom:14px;">
+  <li style="margin-bottom:6px;"><strong>Feature independence assumption:</strong> Standard SHAP treats features as independent when computing v(S). This causes out-of-distribution evaluations (features combined in ways never seen in training).</li>
+  <li style="margin-bottom:6px;"><strong>Instability under imbalance:</strong> Chen (2024) and Ballegeer (2025) show SHAP rankings change significantly as imbalance increases, measured by CV and SRA.</li>
+  <li style="margin-bottom:6px;"><strong>No structural awareness:</strong> Treats all features as independent players; ignores natural groupings (e.g., all repayment-history features).</li>
+  <li><strong>Implementation non-invariance:</strong> Path-dependent TreeSHAP can produce different rankings for two tree structures computing the same function (Filom 2024).</li>
+</ul>
+
+<h3>Your Result</h3>
+<p>SHAP's cross-fold Jaccard ranged from <strong>0.169 to 0.643</strong> — failing the 0.80 regulatory threshold on ALL 5 datasets.</p>
+</section>
+
+<!-- ======================== BANZHAF ======================== -->
+<section id="banzhaf">
+<h2>2. Banzhaf Value</h2>
+
+<h3>Theory</h3>
+<div class="formula-box">
+<strong>φ_i^Banzhaf</strong> = (1/2^{d-1}) × Σ_{S ⊆ N\{i}} [v(S∪{i}) − v(S)]<br><br>
+Key difference from Shapley: ALL coalitions get EQUAL weight (1/2^{d-1})<br>
+Shapley weights smaller and larger coalitions more; Banzhaf weights all equally<br><br>
+<strong>NO efficiency axiom:</strong> Σφ_i ≠ f(x) in general
+</div>
+
+<h3>Theoretical Robustness Argument (Wang 2023)</h3>
+<p>Banzhaf has the <strong>minimal Lipschitz constant</strong> among all semivalues. This means small perturbations in v(S) estimates produce smaller changes in attributions than any other semivalue including Shapley. This is WHY it should be theoretically more stable.</p>
+
+<h3>Why it FAILED in your experiments</h3>
+<div class="danger">
+<strong>The approximation budget was too conservative:</strong> n_samples=2, max_instances=2 per configuration in the experimental grid.<br><br>
+This means for each feature, only 2 random coalitions were sampled, and only on 2 test instances. With such a tiny budget, the approximation variance completely overwhelms the theoretical stability advantage. The result: artificially high magnitude stability (uniform, low-variance outputs near zero) but terrible directional consistency (cosine similarity as low as 0.216 on LC-10%).
+</div>
+
+<h3>Code Implementation</h3>
+<pre><code># The "missing feature = 0" approach is used
+# This is a simplification — real Banzhaf would sample from marginal distribution
+x_without = x.copy()
+x_without[0, f] = 0  # set feature f to 0 (not to background mean)
+
+# Equal-weight coalition sampling
+coal = np.random.binomial(1, 0.5, n_feat)  # each feature equally likely in/out</code></pre>
+</section>
+
+<!-- ======================== MYERSON ======================== -->
+<section id="myerson">
+<h2>3. Myerson Value</h2>
+
+<h3>Theory</h3>
+<p>Myerson (1977): In some games, not all coalitions are feasible — players can only cooperate if they're "connected" via a communication graph G. Only coalitions forming a <strong>connected subgraph</strong> of G are admissible.</p>
+
+<div class="formula-box">
+<strong>φ_i^Myerson</strong> = φ_i(v^G)<br><br>
+where v^G(S) = Σ_{T ∈ connected_components(S in G)} v(T)<br><br>
+= The Shapley value of the RESTRICTED game, where disconnected coalitions are broken into their connected components<br><br>
+<strong>Key insight:</strong> This prevents attributions from averaging over feature combinations that never co-occur in reality — the primary source of out-of-distribution bias in SHAP.
+</div>
+
+<h3>Your Approximation (Eq. 2.20)</h3>
+<div class="formula-box">
+<strong>φ_i^Myerson ≈ (1−β)φ_i^SHAP + β × (1/|N(i)|) × Σ_{j∈N(i)} φ_j^SHAP</strong><br><br>
+β = 0.5 (neutral midpoint between pure SHAP and full neighbor averaging)<br>
+N(i) = neighbors of feature i in the communication graph<br>
+Graph built using Pearson correlation: edge exists if |ρ_ij| ≥ 0.25
+</div>
+
+<div class="info">This is a <strong>graph-smoothed heuristic</strong> of the exact Myerson value. It's adopted for computational tractability across 1,680 configurations. The exact computation would require re-running the game for every connected component separately.</div>
+
+<h3>Graph Construction in Code</h3>
+<pre><code># Built per fold using TRAINING DATA ONLY (no test leakage)
+corr_tr = np.corrcoef(X_tr_proc.T)  # Pearson correlation matrix
+
+G_myerson = nx.Graph()
+G_myerson.add_nodes_from(range(d))
+
+for i in range(d):
+    for j in range(i+1, d):
+        if abs(corr_tr[i, j]) >= 0.25:   # threshold τ = 0.25
+            G_myerson.add_edge(i, j)</code></pre>
+
+<h3>Smoothing Computation</h3>
+<pre><code>def compute_myerson(pipe, X_test, G, alpha=0.5):  # alpha = β in thesis
+    shap_vals = get_shap_values(pipe, X_test)
+    shap_mean = shap_vals.mean(axis=0)  # mean SHAP across test instances
+    
+    for i in range(d):
+        neighbors = list(G.neighbors(i))
+        if len(neighbors) == 0:
+            phi[i] = shap_mean[i]  # isolated node: keep SHAP
+        else:
+            neighbor_mean = mean(shap_mean[j] for j in neighbors)
+            phi[i] = (1 - alpha) * shap_mean[i] + alpha * neighbor_mean
+    
+    # Return tiled — all instances get the SAME Myerson vector
+    return np.tile(phi, (n_tile, 1)), shap_vals, shap_mean</code></pre>
+
+<div class="warn"><strong>Note:</strong> The Myerson smoothing is applied to the <em>mean</em> SHAP vector across test instances, then tiled back. All instances in a fold get the same Myerson attribution. This is why it lacks instance-level discrimination but achieves fold-level stability.</div>
+</section>
+
+<!-- ======================== OWEN ======================== -->
+<section id="owen">
+<h2>4. Owen Value Variants</h2>
+
+<h3>Theory</h3>
+<div class="formula-box">
+<strong>Owen Value:</strong> Two-level Shapley decomposition<br><br>
+1. First: compute how much each GROUP contributes (inter-group Shapley game)<br>
+2. Then: within each group, distribute the group's share using another Shapley game<br><br>
+Key property: Efficiency holds at BOTH levels<br>
+When each group has 1 member → reduces to standard Shapley value
+</div>
+
+<h3>Your Implementation (Owen-inspired redistribution)</h3>
+<pre><code>def owen_from_phi(phi, groups):
+    # phi = mean TreeSHAP vector (d-dimensional)
+    # groups = dict of group_name → [feature indices]
+    
+    for group_name, feats in groups.items():
+        total = np.sum(np.abs(phi[feats]))   # total absolute contribution of group
+        per = total / len(feats)              # equal share per member
+        
+        for f in feats:
+            out[f] = sign(phi[f]) * per       # preserve sign, equalize magnitude
+
+# Then tile for all instances:
+owen_dom = np.tile(owen_from_phi(phi_base, domain_groups), (len(X_sample), 1))</code></pre>
+
+<h3>Three Partition Strategies</h3>
+
+<h4>Owen-Domain (Expert groups)</h4>
+<p>Based on Basel credit risk categories. For Coursera: ObligorCharacteristics, Creditworthiness, ContractTerms, CollateralSupport, LoanMetadata. For LC-B: LoanTerms, BorrowerProfile, CreditHistory, RevolvingCredit, LoanMetadata.</p>
+<pre><code>def build_domain_groups_coursera(fnames):
+    for i, name in enumerate(fnames):
+        ln = name.lower()
+        if any(k in ln for k in ["age", "income", "education", ...]):
+            groups["ObligorCharacteristics"].append(i)</code></pre>
+
+<h4>Owen-Data (Correlation clustering)</h4>
+<p>Built from Pearson correlation of training features. Same formula as Myerson graph but used for grouping, not smoothing.</p>
+<pre><code>def build_data_groups(X_proc, n_groups=5):
+    corr = np.corrcoef(X_proc.T)
+    dist = 1 - np.abs(corr)           # distance = 1 minus absolute correlation
+    
+    clustering = AgglomerativeClustering(
+        n_clusters=5,                  # fixed at 5 to match Owen-Domain
+        metric='precomputed', 
+        linkage='average'
+    )
+    labels = clustering.fit_predict(dist)</code></pre>
+
+<h4>Owen-Model (SHAP clustering)</h4>
+<p>Groups features whose SHAP values co-vary across instances — features the model treats as functionally interchangeable.</p>
+<pre><code>def build_model_groups(shap_vals, n_groups=5):
+    corr = np.corrcoef(shap_vals.T)   # correlation of SHAP VECTORS
+    dist = 1 - np.abs(corr)
+    
+    # Same agglomerative clustering on SHAP correlation
+    clustering = AgglomerativeClustering(n_clusters=5, ...)</code></pre>
+
+<h3>Why 5 groups? (Important for defense)</h3>
+<div class="info">
+m=5 was fixed across ALL three strategies and ALL datasets. This allows direct comparison of the <em>source of grouping information</em> (expert vs statistical vs model-driven) while controlling for the number of coalition partitions. Follows the methodology of DavilaPena (2025) who similarly fix partition size for unbiased comparison.
+</div>
+
+<h3>Group Quality (Q)</h3>
+<div class="formula-box">
+<strong>Q = W / B</strong><br><br>
+W = mean within-group Pearson correlation (features in same group correlate with each other)<br>
+B = mean between-group Pearson correlation (features across groups are less correlated)<br><br>
+Q > 1: groups are cohesive (within &gt; between) → good grouping<br>
+Q < 1: groups are poorly defined
+</div>
+<pre><code>def compute_Q(groups, dep):
+    # dep = absolute correlation matrix
+    within, across = [], []
+    for i in range(d):
+        for j in range(i+1, d):
+            if group_id[i] == group_id[j]:
+                within.append(dep[i, j])
+            else:
+                across.append(dep[i, j])
+    return mean(within) / mean(across)</code></pre>
+</section>
+
+<!-- ======================== R-MYERSON ======================== -->
+<section id="rmyerson">
+<h2>5. R-Myerson — Your Novel Contribution</h2>
+
+<h3>The Big Idea</h3>
+<p>Myerson stabilises attributions by restricting coalitions to connected graph nodes. But it can still be variable because the smoothed SHAP values themselves vary across folds. R-Myerson adds a second layer: <strong>egalitarian redistribution of the Myerson vector's total magnitude</strong>.</p>
+
+<div class="formula-box">
+<strong>φ_i^R-Myerson = sign(φ_i^Myerson) × (1/d) × Σ_j |φ_j^Myerson|</strong><br><br>
+= preserve the DIRECTION of each feature's Myerson attribution<br>
++ give ALL features the SAME magnitude (average of all Myerson magnitudes)<br><br>
+This is why K_c = 1.000: since all features have identical magnitudes,<br>
+the top-k features are determined solely by their SIGNS (positive = risk-increasing)<br>
+Signs are stable across folds → perfect Kuncheva.
+</div>
+
+<h3>Code</h3>
+<pre><code>def adaptive_owen_myerson(phi_my):
+    # phi_my = mean Myerson vector (d-dimensional, from compute_myerson)
+    d_local = len(phi_my)
+    total = np.sum(np.abs(phi_my))       # total magnitude
+    per = total / d_local                 # equal share for all features
+    
+    return np.array([
+        (np.sign(x) if x != 0 else 1) * per
+        for x in phi_my
+    ])
+
+# Applied:
+r_myerson = np.tile(
+    adaptive_owen_myerson(m_vals.mean(axis=0)),  # m_vals from compute_myerson
+    (len(X_sample), 1)
+)</code></pre>
+
+<h3>Theoretical Motivation</h3>
+<table>
+  <tr><th>Inspiration</th><th>Mechanism</th><th>How R-Myerson uses it</th></tr>
+  <tr><td>Myerson (1977)</td><td>Graph-restricted coalitions eliminate unrealistic combinations</td><td>Step 1: compute φ^Myerson as graph-smoothed SHAP</td></tr>
+  <tr><td>Dutta & Ray (1989)</td><td>Egalitarian solutions are Lorenz-maximal; equal redistribution when stability > differentiation</td><td>Step 2: redistribute magnitudes uniformly across all d features</td></tr>
+  <tr><td>Wang (2023) — Banzhaf</td><td>Uniform coalition weighting → minimal Lipschitz constant → stability</td><td>Analogy: uniform MAGNITUDE redistribution → stability of ranking (by sign)</td></tr>
+  <tr><td>Abe (2023)</td><td>In-group egalitarian Owen: uniform redistribution within groups</td><td>R-Myerson applies this globally (whole feature set = one "group")</td></tr>
+</table>
+
+<h3>The Trade-off R-Myerson Makes</h3>
+<div class="warn">
+<strong>R-Myerson sacrifices magnitude discrimination for sign stability.</strong><br>
+All features get the same absolute attribution. You CANNOT use R-Myerson to rank denial reasons by magnitude (feature A contributed 0.05 more than B). You CAN use it to identify which features are risk-increasing (+) vs risk-decreasing (−) consistently.<br><br>
+<strong>For adverse action notices:</strong> R-Myerson identifies the consistent SET of risk factors. For RANKED denial reasons, pair R-Myerson with SHAP or Owen-Domain for magnitude ranking.
+</div>
+
+<h3>Why K_c = 1.000 is "by construction"</h3>
+<p>Since all d features get identical magnitude per fold, the top-k feature set is determined solely by which features have positive signs. If signs are stable across folds (which they are, since Myerson smoothing itself is stable), then the same k features always appear in the top-k. Hence perfect Kuncheva. This is a structural property, not a statistical coincidence.</p>
+</section>
+
+<!-- ======================== METRICS ======================== -->
+<section id="metrics">
+<h2>📐 Interpretability Metrics — Code and Formulas</h2>
+
+<h3>1. Magnitude Stability (S_var)</h3>
+<div class="formula-box">
+CV_j = σ_j / (μ_j + ε) &nbsp;&nbsp; where σ_j = std of |φ_{fold,j}|, μ_j = mean<br>
+S_var = 1 − mean(CV across features)
+</div>
+<pre><code>def stability_cv(expl_list):
+    # expl_list: list of attribution arrays, one per fold
+    arr = np.stack([np.abs(e) for e in expl_list])  # stack folds
+    mean = arr.mean(axis=0) + 1e-8                    # mean per feature
+    return float(np.mean(arr.std(axis=0) / mean))    # mean CV across features
+# Note: code returns CV (instability). Thesis uses S_var = 1 - CV</code></pre>
+
+<h3>2. Kuncheva Index (K_c)</h3>
+<div class="formula-box">
+K_{p,q} = (|A_p ∩ A_q| − k²/d) / (k − k²/d)<br><br>
+= (actual overlap − chance overlap) / (maximum overlap − chance overlap)<br><br>
+K_c = average over all fold pairs<br>
+Range: [−1, 1]. K_c = 1: perfect stability. K_c = 0: random (no better than chance).
+</div>
+<pre><code>def kuncheva_index(expl_list, k=10):
+    sets = []
+    for exp in expl_list:
+        imp = np.abs(exp).mean(axis=0)           # mean attribution magnitude
+        top_k = set(np.argsort(imp)[-k:])        # top-k feature indices
+        sets.append(top_k)
+    
+    ki_vals = []
+    for i in range(len(sets)):
+        for j in range(i+1, len(sets)):
+            overlap = len(sets[i] & sets[j])      # intersection size
+            chance = k**2 / d                     # expected random overlap
+            ki = (overlap - chance) / (k - chance) if k != d else 0.0
+            ki_vals.append(ki)
+    return np.mean(ki_vals)</code></pre>
+
+<div class="info"><strong>Why not Jaccard?</strong> Jaccard = |A∩B|/|A∪B| doesn't correct for chance. If you pick k=5 features from d=100, there's always some random overlap. Kuncheva subtracts this chance baseline, making it a genuine measure of above-chance consistency.</div>
+
+<h3>3. Cosine Directional Consistency (C)</h3>
+<div class="formula-box">
+C_{p,q} = (φ̄_p · φ̄_q) / (||φ̄_p|| × ||φ̄_q||)<br><br>
+where φ̄_fold = mean attribution vector across test instances in that fold<br>
+C = average cosine similarity over all fold pairs
+</div>
+<pre><code>def cosine_directional_consistency(expl_list):
+    mean_vecs = [np.mean(e, axis=0).ravel() for e in expl_list]  # mean per fold
+    sims = [1 - cosine(mean_vecs[p], mean_vecs[s])
+            for p in range(len(mean_vecs)) 
+            for s in range(p+1, len(mean_vecs))]
+    return np.mean(sims)</code></pre>
+
+<h3>4. Composite Interpretability Score (I)</h3>
+<div class="formula-box">
+I = (1/3) × S_var + (1/3) × K_c + (1/3) × C<br><br>
+Equal weights because: no consensus in literature on relative importance (Pawlicki 2024).<br>
+In practice: weights can be adjusted for regulatory context (e.g., higher K_c weight for adverse action notices).
+</div>
+<pre><code>def interpretability_score(cv_val, kun_val, cos_val, beta=1/3):
+    return beta * (1 - cv_val) + beta * kun_val + beta * cos_val
+# Note: (1 - cv_val) = S_var</code></pre>
+
+<h3>5. Performance-Interpretability Trade-off (S(α))</h3>
+<div class="formula-box">
+z̃ = (z − z_min) / (z_max − z_min)  [min-max normalization per column]<br><br>
+S(α) = α × AUC̃ + (1−α) × Ĩ<br><br>
+α = 0.5: equal weight to accuracy and interpretability (baseline)<br>
+α = 1: purely predictive; α = 0: purely interpretable
+</div>
+<pre><code>def normalize(s):
+    return (s - s.min()) / (s.max() - s.min() + 1e-8)
+
+def performance_interpretability_score(auc_series, I_series, alpha=0.5):
+    return alpha * normalize(auc_series) + (1 - alpha) * normalize(I_series)
+
+# Applied AFTER all configurations are collected:
+metrics['S(α=0.5)'] = performance_interpretability_score(metrics['AUC'], metrics['I'])</code></pre>
+
+<div class="warn"><strong>Important:</strong> S(α) is computed by normalizing across ALL configurations in one dataset (not globally). This means the S score is relative within a dataset. The global ranking uses the score from within each dataset.</div>
+</section>
+
+<!-- ======================== PIPELINE ======================== -->
+<section id="pipeline">
+<h2>⚙️ Experimental Pipeline — Step by Step</h2>
+
+<h3>The Full Flow</h3>
+<pre><code>RAW DATA
+   ↓
+Split: 20% tuning / 80% evaluation (or 50/50 for small datasets)
+   ↓
+Hyperparameter tuning (RandomizedSearchCV, 15 iter, 4-fold inner CV, AUC-ROC)
+   ↓
+Main experiment: 4-fold stratified outer CV on evaluation pool
+  For each fold:
+    1. Fit ColumnTransformer (OHE + StandardScaler) on TRAINING fold only
+    2. Build Myerson graph from training correlation (τ=0.25)
+    3. Build data groups (agglomerative on training correlation)
+    4. Build model groups (agglomerative on training SHAP correlation)
+    5. Fit model (with or without sampler, inside ImbPipeline)
+    6. Evaluate AUC-ROC on test fold
+    7. Draw stratified explanation sample (n=30, min 5 defaults)
+    8. Compute all 7 attribution methods on explanation sample
+    9. Store attribution vectors per method per fold
+  After 4 folds:
+    Compute CV, Kuncheva, Cosine → I score per method
+    Compute S(α=0.5) after normalizing across dataset
+   ↓
+Statistical tests: Friedman → Nemenyi, Wilcoxon + Cliff's delta
+   ↓
+Credit risk application outputs</code></pre>
+
+<h3>Preventing Data Leakage</h3>
+<table>
+  <tr><th>Component</th><th>Fitted on</th><th>Why this matters</th></tr>
+  <tr><td>ColumnTransformer (OHE + scaling)</td><td>Training fold only (fit_transform)</td><td>Prevents test distribution from affecting preprocessing</td></tr>
+  <tr><td>Categorical levels for OHE</td><td>FULL dataset (for schema stability)</td><td>Ensures consistent feature dimensionality across folds — needed for comparable φ vectors</td></tr>
+  <tr><td>Myerson graph</td><td>Training fold correlation only</td><td>Graph structure should not be informed by test features</td></tr>
+  <tr><td>Owen data/model groups</td><td>Training fold only</td><td>Same reason — clustering uses only training correlation/SHAP</td></tr>
+  <tr><td>SMOTE / SMOTETomek</td><td>Applied inside ImbPipeline on training fold only</td><td>Synthetic samples never "seen" during testing</td></tr>
+  <tr><td>Hyperparameter tuning</td><td>Separate tuning pool (never touches evaluation pool)</td><td>Eliminates optimistic bias in performance estimates</td></tr>
+</table>
+
+<h3>Cost-Sensitive Learning Implementation</h3>
+<pre><code>class_weight_dict = {
+    int(cls): float(w)
+    for cls, w in zip(np.unique(y), 
+                      compute_class_weight('balanced', classes=..., y=y))
+}
+
+# Formula: w_k = n / (K × n_k)
+# For XGB: scale_pos_weight = w_1 / w_0
+if mname == 'XGB':
+    pipe.named_steps['clf'].set_params(
+        scale_pos_weight=class_weight_dict[1]/class_weight_dict[0]
+    )
+else:  # RF, LGB
+    pipe.named_steps['clf'].set_params(class_weight=class_weight_dict)</code></pre>
+
+<h3>Explanation Sampling</h3>
+<pre><code>def stratified_explanation_sample(X_te, y_te, n=30, min_pos=5):
+    # Force at least min_pos=5 default cases in the 30-instance sample
+    # Critical for highly imbalanced datasets (Coursera 1%)
+    n_pos = min(min_pos, len(pos_idx), n)
+    n_neg = n - n_pos
+    # sample positives and negatives separately, then shuffle</code></pre>
+</section>
+
+<!-- ======================== DATASETS ======================== -->
+<section id="datasets">
+<h2>📊 Datasets — Key Facts</h2>
+
+<table>
+  <tr><th>Dataset</th><th>Obs.</th><th>Raw features</th><th>After OHE</th><th>Default %</th><th>Imbalance</th><th>Split</th></tr>
+  <tr><td>German Credit</td><td>1,000</td><td>20</td><td>48</td><td>30%</td><td>Low</td><td>50/50 tuning</td></tr>
+  <tr><td>Taiwan Credit</td><td>30,000</td><td>23</td><td>82</td><td>22.12%</td><td>Medium</td><td>20/80 tuning</td></tr>
+  <tr><td>LC-A (10%)</td><td>50,000</td><td>15</td><td>81</td><td>10%</td><td>Medium</td><td>20/80 tuning</td></tr>
+  <tr><td>LC-B (4%)</td><td>1,647</td><td>50</td><td>38</td><td>4.01% (66 defaults)</td><td>Severe</td><td>50/50 tuning</td></tr>
+  <tr><td>Coursera (1%)</td><td>227,973</td><td>17</td><td>24</td><td>1%</td><td>Extreme</td><td>20/80 tuning</td></tr>
+</table>
+
+<div class="warn"><strong>Why 38 features for LC-B not 50?</strong> After OHE with drop='first', some features collapse. The 50 raw features → 38 processed features. This is the settled 38-feature approach mentioned in your thesis methodology.</div>
+
+<h3>Why these 5 datasets?</h3>
+<p>They span the full spectrum of class imbalance (1%–30%) and vary in dimensionality, sample size, and borrower population. This enables systematic assessment of how imbalance severity interacts with attribution stability — impossible to evaluate on any single dataset.</p>
+</section>
+
+<!-- ======================== RESULTS ======================== -->
+<section id="results">
+<h2>📈 Key Results — Numbers to Know</h2>
+
+<h3>Global Rankings (Table 4.4)</h3>
+<table>
+  <tr><th>Metric</th><th>Best config</th><th>Score</th></tr>
+  <tr><td>Highest mean AUC</td><td>LGB + No resampling</td><td>0.734</td></tr>
+  <tr><td>Highest mean I</td><td>XGB + SMOTETomek</td><td>0.664</td></tr>
+  <tr><td>Highest mean S(α=0.5)</td><td>RF + Cost-Sensitive</td><td>0.690</td></tr>
+</table>
+
+<h3>Method Rankings (by S-score)</h3>
+<p>R-Myerson > Owen-Data ≈ Owen-Domain > Owen-Model > SHAP ≈ Myerson > Banzhaf</p>
+
+<h3>AUC–I Correlation (Table 4.6)</h3>
+<table>
+  <tr><th>Dataset</th><th>Spearman ρ</th><th>p-value</th><th>Interpretation</th></tr>
+  <tr><td>German (30%)</td><td>+0.027</td><td>0.809</td><td>No trade-off (balanced data)</td></tr>
+  <tr><td>Taiwan (22%)</td><td>−0.258</td><td>0.018 ✓</td><td>Moderate trade-off</td></tr>
+  <tr><td>LC-10% (10%)</td><td>−0.395</td><td>&lt;0.001 ✓</td><td>Strong trade-off</td></tr>
+  <tr><td>LC-4% (4%)</td><td>−0.017</td><td>0.877</td><td>No significant (too noisy)</td></tr>
+  <tr><td>Coursera (1%)</td><td>−0.391</td><td>&lt;0.001 ✓</td><td>Strong trade-off</td></tr>
+</table>
+
+<h3>Friedman Test (all p &lt; 0.001)</h3>
+<p>Universal rejection confirms method differences are real, not artifacts. Friedman χ² ranged from 23.14 (LC-10%) to 66.46 (LC-4%).</p>
+
+<h3>Cross-fold Jaccard Consistency (Table 4.9)</h3>
+<table>
+  <tr><th>Method</th><th>German</th><th>Taiwan</th><th>LC-10%</th><th>LC-4%</th><th>Coursera</th></tr>
+  <tr><td><strong>R-Myerson</strong></td><td><strong>1.000</strong></td><td><strong>1.000</strong></td><td><strong>1.000</strong></td><td><strong>1.000</strong></td><td><strong>1.000</strong></td></tr>
+  <tr><td>SHAP</td><td>0.603</td><td>0.169</td><td>0.587</td><td>0.316</td><td>0.643</td></tr>
+  <tr><td>Banzhaf</td><td>0.162</td><td>0.326</td><td>0.573</td><td>0.116</td><td>0.386</td></tr>
+  <tr><td>Owen-Domain</td><td>1.000</td><td>0.500</td><td>0.556</td><td>0.491</td><td>0.714</td></tr>
+  <tr><td>Owen-Data</td><td>0.143</td><td>1.000</td><td>0.778</td><td>1.000</td><td>0.714</td></tr>
+</table>
+
+<h3>SMOTE Paradox — Numbers</h3>
+<p>On Coursera: I jumps from 0.296–0.368 (None sampler) to 0.583–0.645 (SMOTE family) — but AUC-ROC drops by 5–7%. This is the "artificial stability" artifact from synthetic data regularizing decision boundaries.</p>
+</section>
+
+<!-- ======================== REGULATORY ======================== -->
+<section id="regulatory">
+<h2>⚖️ Regulatory Context — What to Know</h2>
+
+<h3>Key Laws</h3>
+<table>
+  <tr><th>Regulation</th><th>Requirement</th><th>Your framework addresses it by...</th></tr>
+  <tr><td>GDPR Article 22</td><td>Right to explanation for automated decisions</td><td>Attribution methods provide feature-level reasons for denial</td></tr>
+  <tr><td>EU AI Act</td><td>Credit scoring = high-risk AI → transparency, robustness, human oversight</td><td>S(α) framework quantifies robustness; cross-fold consistency checks</td></tr>
+  <tr><td>ECOA / Regulation B (US)</td><td>Specific, consistent reasons for credit denial regardless of model complexity</td><td>R-Myerson achieves Jaccard=1.000; adverse action notices with consistent top features</td></tr>
+</table>
+
+<h3>Operational Detection Bias</h3>
+<p>Key finding: LGB + No resampling achieved 100% miss rate on Coursera and LC-10% at operational thresholds (0.15 and 0.35 PD cutoffs), despite competitive AUC-ROC (~0.74 and ~0.65). This shows AUC-ROC alone is insufficient for deployment — the model ranked defaulters correctly but assigned everyone probabilities below the denial threshold.</p>
+
+<h3>The 0.80 Jaccard Threshold</h3>
+<div class="info">This is YOUR pragmatic benchmark. No regulation prescribes a specific number. You derived it from the operational expectation that at least 4 of the top 5 features should be stable across model retrainings. (4/5 ≈ 0.80). The ECOA principle it operationalises: "similarly situated applicants receive comparable adverse action explanations."</div>
+</section>
+
+<!-- ======================== TRICKY Q&A ======================== -->
+<section id="tricky-qa">
+<h2>🔥 Tricky Q&A — Expected Defense Questions</h2>
+
+<div class="qa-card open" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: You told your supervisor the characteristic function is "averaged" — was that correct?</div>
+  <div class="qa-answer">
+    <strong>Partially correct, but incomplete.</strong> For TreeSHAP: the characteristic function v(S) is computed internally by TreeSHAP by following the decision tree structure. For nodes where a feature in S is used for splitting, the path is followed normally. For nodes where a feature NOT in S is encountered, the prediction is averaged over both child paths, weighted by the proportion of training samples that went left vs right. This is a conditional expectation given the tree path — not a simple average over all background samples.<br><br>
+    For your Owen/Myerson variants: you don't recompute v(S) at all. You take the pre-computed TreeSHAP φ values and redistribute them. So the characteristic function is "inherited" from TreeSHAP and the redistribution happens at the attribution level, not the value function level.
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: Your R-Myerson gets perfect K_c = 1.000 by construction. Isn't this "cheating"?</div>
+  <div class="qa-answer">
+    No — and you should address this directly and honestly. <strong>K_c = 1.000 is a structural property of the method, explicitly acknowledged in the thesis.</strong> Because all features get equal magnitude, the top-k set is determined purely by sign. If signs are stable across folds (which they are due to Myerson's graph-smoothing), the ranking is perfectly consistent.<br><br>
+    This is <em>not</em> cheating because: (1) the method transparently achieves this through its design; (2) sign stability is itself a meaningful and desirable regulatory property — adverse action notices require knowing which features are risk-increasing, not their exact magnitude ranking; (3) the trade-off is openly acknowledged: R-Myerson sacrifices magnitude discrimination in exchange for sign consistency. For ranked denial reasons, the thesis explicitly recommends pairing R-Myerson with SHAP or Owen attributions.
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: Why did you use Pearson correlation for graph construction and Owen grouping, not Spearman?</div>
+  <div class="qa-answer">
+    Methodological consistency with the linear feature space. After one-hot encoding and StandardScaler, the feature space is fully numeric and approximately linear. SHAP values themselves behave linearly in expectation. Under these conditions, Pearson correlation provides a geometrically coherent similarity measure aligned with the Euclidean structure of the agglomerative clustering distance metric.<br><br>
+    Non-parametric alternatives (Spearman, Kendall, Jaccard for binary features) are valid — the thesis explicitly acknowledges this. The choice is a deliberate methodological decision for consistency, not a claim that Pearson is universally superior. Future work should test sensitivity to correlation measure choice.
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: Is your Myerson implementation actually the Myerson value?</div>
+  <div class="qa-answer">
+    <strong>No — and you say so explicitly in the thesis.</strong> The exact Myerson value (Eq. 2.17) requires computing the Shapley value of the restricted game v^G, where coalitions are restricted to connected subgraphs. This would require re-running game computations for every connected component of every coalition — exponential complexity.<br><br>
+    Your implementation (Eq. 2.20) is a graph-smoothed heuristic: φ_i^Myerson ≈ (1−β)φ_i^SHAP + β × average of neighbor SHAP values. This is described as "a graph-smoothed heuristic approximation... translating the principles of graph-restricted games into a scalable machine learning regulariser." It's adopted for computational tractability across 1,680 configurations.
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: SMOTE improved the I score but you recommend against it. Isn't that contradictory?</div>
+  <div class="qa-answer">
+    This is the core tension of the thesis and you should address it confidently. The I score improvement from SMOTE is <strong>artificial</strong>. SMOTE creates synthetic minority instances by interpolating between real ones. When models are trained on this synthetic data, decision boundaries become smoother and more regular — which makes SHAP attributions more consistent across folds (lower CV, higher Kuncheva).<br><br>
+    However, this stability is based on a synthetic data distribution, not the true feature-label relationships of real defaulters. As Cemernek (2024) shows, this jeopardises model understandability: explanations are stable descriptions of a synthetic world, not the real credit risk landscape.<br><br>
+    The S(α) framework is designed precisely to expose this paradox: SMOTE gets high I but low AUC, giving it a lower S(α) than cost-sensitive approaches that achieve both good AUC and reasonable (genuinely earned) stability.
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: Why is there no AUC–I trade-off in German (30%) and LC-4%?</div>
+  <div class="qa-answer">
+    Two very different reasons for two very different datasets:<br><br>
+    <strong>German (30%):</strong> Near-balanced class distribution provides enough minority examples that any model configuration can learn good decision boundaries AND produce stable attributions. With 30% defaults in 1,000 samples (300 default cases), the minority class is abundant enough for joint optimization. Hence ρ = 0.027, p = 0.809 — no trade-off exists.<br><br>
+    <strong>LC-4%:</strong> The opposite reason. Only 66 actual default events in the evaluation pool (after 50/50 tuning split, ~824 evaluation samples, ~33 defaults). Both AUC and I have high estimation noise from such few minority examples. There isn't enough statistical signal to detect the latent trade-off even if it exists. Hence ρ = −0.017, p = 0.877 — statistically uninformative, not structurally absent.
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: How do you know the Q vs I negative correlation (German, LC-4%) is a redistribution artifact and not a genuine finding?</div>
+  <div class="qa-answer">
+    In German: High Q scores arise when agglomerative clustering groups one-hot encoded dummy variables together (e.g., all levels of "checking_account_status" end up in one cluster, making within-group correlation near-perfect). But this grouping lacks semantic coherence — redistributing magnitude uniformly within a cluster of OHE dummies produces unstable attributions because the individual dummies don't carry independent information.<br><br>
+    In LC-4%: 24 of 36 Owen-Data/Owen-Model configurations collapsed ALL features into a single cluster (Q = 1.0, meaning no between-group correlation could be computed). When this happens, the entire feature set gets treated as one "group," and Owen redistribution equalizes ALL magnitudes — producing the same outcome as R-Myerson. This artificially spikes I while Q=1.0 is a degeneracy signal, not a genuine quality measure. The negative relationship arises from this edge case, not a theoretically meaningful pattern.
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: Why τ = 0.25 for the Myerson graph threshold?</div>
+  <div class="qa-answer">
+    This was chosen as a pragmatic balance. A very low threshold (e.g., τ = 0.10) would create a nearly fully connected graph — almost every feature pair gets an edge, neighbor averaging would reduce all attributions to nearly identical values (equivalent to full egalitarian redistribution), eliminating structural information. A very high threshold (e.g., τ = 0.70) would create a sparse graph with many isolated nodes — most features would get pure SHAP values with no graph smoothing, making Myerson nearly identical to SHAP.<br><br>
+    τ = 0.25 captures meaningful statistical dependencies while avoiding overly dense graphs. Sensitivity analysis on τ is explicitly identified as future work in Section 5.5. This is an honest acknowledgment that the choice is not rigorously optimized.
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: What exactly is the "efficiency axiom" and why does it matter for adverse action notices?</div>
+  <div class="qa-answer">
+    The efficiency axiom states: Σ φ_i = f(x) − E[f(x)] (or f(x) − baseline).<br><br>
+    In plain language: the sum of all feature attributions equals the model's prediction minus the baseline prediction (e.g., average prediction across the training set). This means the explanation is <em>complete</em> — it fully accounts for why the model made this particular prediction relative to baseline.<br><br>
+    For adverse action notices: efficiency means you can say "your denial probability was 0.65. The baseline rate is 0.30. The 0.35 excess is explained by: +0.20 from poor repayment history, +0.10 from high DTI, +0.05 from short credit history..." — fully auditable and transparent. Without efficiency, the attributions might leave unexplained residuals, violating ECOA's requirement for specific, complete explanations.<br><br>
+    Note: R-Myerson's egalitarian redistribution does NOT satisfy efficiency in the traditional Shapley sense, because magnitudes are equalized. R-Myerson's contribution is directional consistency, not efficiency-based explanation completeness.
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: Why is Banzhaf not efficient (and what are the implications)?</div>
+  <div class="qa-answer">
+    Banzhaf values don't satisfy Σ φ_i = f(x) − baseline in general. They measure the probability that a feature is <em>pivotal</em> in a random coalition, weighted uniformly. Unlike Shapley, where the combinatorial weights sum to 1 ensuring full allocation, Banzhaf's uniform 1/2^{d-1} weights don't partition the total prediction neatly.<br><br>
+    Implication for adverse action: You cannot use Banzhaf attributions in an additive explanation that sums to the prediction — the numbers won't "add up" to the denial probability. This makes it harder to present in a CFPB-compliant adverse action notice that must explain the specific degree of each factor's contribution. SHAP (and technically Owen) are preferred for their efficiency property in regulatory contexts.
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: What is the Rashomon effect and how does it relate to your thesis?</div>
+  <div class="qa-answer">
+    The Rashomon effect (named after Kurosawa's film about multiple conflicting accounts of the same event) in machine learning: for any given prediction error level, there exists a large set of diverse models that achieve equally optimal accuracy. Implication: at least one member of this set is likely to be simpler and more interpretable.<br><br>
+    Relation to your thesis: It undermines the common assumption that accuracy–interpretability trade-off is inevitable. If you could search the full model space (rather than just gradient boosting), you'd likely find models that are both accurate AND interpretable. The trade-off persists mainly because modern ML tools (like XGBoost) are designed to minimize prediction error and adopt the first complex solution found, not search for the interpretable one (Majumdar 2025).<br><br>
+    Your thesis finds this empirically: in German data (balanced), there IS no trade-off (ρ ≈ 0). Only under severe imbalance does the trade-off emerge — which supports the regime-dependent view of the Rashomon effect.
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: Why did you choose AUC-ROC over PR-AUC or F1 for imbalanced datasets?</div>
+  <div class="qa-answer">
+    AUC-ROC is threshold-independent and class-prevalence invariant — it measures ranking quality across the full probability distribution, not at a specific cutoff. This makes it suitable for comparing models across 5 datasets with default rates ranging from 1% to 30%: a PR-AUC of 0.5 means something very different on a 1% dataset vs a 30% dataset, making cross-dataset comparison invalid.<br><br>
+    However, AUC-ROC has a known limitation in credit: a model can have high AUC-ROC but assign all applicants probabilities below the operational denial threshold (which your analysis confirmed — 100% miss rate on Coursera and LC-10% for no-resampling models). This is precisely why the thesis conducts the credit decision bias analysis (Section 4.1.8) — to demonstrate that AUC-ROC alone is insufficient for deployment and cost-sensitive learning is necessary.
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: What is Cliff's delta and why use it alongside Wilcoxon?</div>
+  <div class="qa-answer">
+    Cliff's delta is a non-parametric effect size measure: δ = (# pairs where x &gt; y − # pairs where x &lt; y) / total pairs. Range [−1, +1]. Interpretation: |δ| &lt; 0.147 negligible; &lt; 0.33 small; &lt; 0.474 medium; ≥ 0.474 large.<br><br>
+    Wilcoxon signed-rank test tells you IF a difference is statistically significant (p &lt; 0.05). Cliff's delta tells you HOW LARGE that difference is in practice. This matters because with large samples (your 12 model-sampler configurations per dataset), even tiny, practically irrelevant differences can become statistically significant. By reporting both, you show that R-Myerson not only outperforms other methods significantly (Wilcoxon p &lt; 0.05) but also by a large effect (|δ| ≥ 0.474 in most comparisons).
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: Your thesis says R-Myerson is the "first" to combine Myerson + egalitarian redistribution. How can you be sure?</div>
+  <div class="qa-answer">
+    You should be careful but confident here. The thesis states: "to the best of the author's knowledge" — this qualifier is important and should be included in every defense answer about novelty. The literature review used SALSA methodology, searched across Scopus, Web of Science, IEEE Xplore, ScienceDirect, SpringerLink, arXiv, and Semantic Scholar. No paper was found that: (1) constructs a Myerson communication graph from empirical feature correlations in tabular credit data, AND (2) applies egalitarian redistribution to the resulting Myerson attributions for ML feature attribution.<br><br>
+    Boruah (2025) uses k-Egalitarian Myerson for cooperative network games (social allocation, NOT supervised learning). Abe (2023) applies in-group egalitarian redistribution to Owen values, not Myerson. The bibliometric analysis (Litmaps figure) confirms sparse cross-pollination between cooperative game theory and XAI literature. The gap is real; the claim is defensible with the "to the best of our knowledge" qualifier.
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: What is the Kuncheva correction for chance, and why does it matter?</div>
+  <div class="qa-answer">
+    If you randomly select k features from d total features, in two independent selections the expected overlap by chance is k²/d. For example, if k=10 and d=100: expected random overlap = 100/100 = 1 feature. So if two methods overlap on 3 features, Jaccard would say 3/17 ≈ 0.18. But Kuncheva corrects: (3 − 1)/(10 − 1) ≈ 0.22 — still low, but now appropriately compared to a random baseline.<br><br>
+    This matters when k &lt;&lt; d. In your datasets with d=82 features (Taiwan after OHE) and k=10, chance overlap is 100/82 ≈ 1.2 features. Without correction, any method overlapping on 2 features might look "stable" with Jaccard, but after Kuncheva correction you see it's barely above chance. The correction prevents misleadingly optimistic stability assessments.
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: Could you have used a different coalition structure for Myerson than Pearson correlation?</div>
+  <div class="qa-answer">
+    Yes, and this is a valid criticism to address proactively. Alternative options include: mutual information (captures non-linear dependencies), Spearman rank correlation (monotonic, robust to outliers), partial correlation (controls for confounders), or domain-expert defined connectivity. For binary OHE features specifically, Jaccard distance is recommended by DavilaPena (2025).<br><br>
+    Pearson was chosen for methodological consistency — the same measure used in Owen-Data clustering and the Myerson graph ensures the framework is internally coherent. After OHE and StandardScaler, the feature space is sufficiently linear for Pearson to be appropriate. The τ = 0.25 threshold further filters out weak, potentially spurious correlations. The effect of alternative graph construction methods is identified as a direction for future research.
+  </div>
+</div>
+
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">Q: How do you ensure your Banzhaf implementation is even approximately correct with n_samples=2?</div>
+  <div class="qa-answer">
+    You should be honest about this limitation. With n_samples=2 coalitions sampled per feature per instance, and only max_instances=2 instances evaluated, the Banzhaf approximation is extremely noisy. Wang (2023) establishes that the approximation variance can overwhelm the theoretical stability advantage when the budget is too tight.<br><br>
+    The thesis explicitly acknowledges this in Section 5.4 (Limitations) and in the Computational Sampling Parameters section: "Banzhaf used a conservative Monte Carlo budget... constrained by the computational demands of the full experimental grid (1,680 configurations). Its implications for Banzhaf's observed instability are discussed in Chapter 5." The result is: Banzhaf's poor performance reflects approximation budget limitations, not a fundamental weakness of the Banzhaf value. Rerunning with n_samples=500+ would likely improve Banzhaf substantially — this is identified as a future research direction.
+  </div>
+</div>
+
+</section>
+
+</div>
+
+<button class="scroll-top" onclick="window.scrollTo(0,0)">↑</button>
+
+<script>
+// Q&A toggle already done via onclick + CSS
+// Add keyboard shortcut
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') window.scrollTo(0,0);
+});
+</script>
+</body>
+</html>
